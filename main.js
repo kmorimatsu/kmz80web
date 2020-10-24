@@ -15,6 +15,7 @@ z80.events=function(){
 }
 // Override JP command for loading from/saving to file.
 var autostart=get.start;
+var dumplist=get.dumplist;
 z80.codeC3copy=z80.codeC3;
 z80.codeC3=function(){
 	if (0x30<=this.regPC) return this.codeC3copy();
@@ -25,6 +26,29 @@ z80.codeC3=function(){
 			z80.loadPC(parseInt(autostart,16));
 			autostart=false;
 			return;
+		}
+		if (dumplist) {
+			switch(this.regPC){
+				case 0x07: // new line
+					dom.displaylog("\n");
+					break;
+				case 0x13: // Show an ASCII code character
+					dom.displaylog(String.fromCharCode(this.regA));
+					break;
+				case 0x16: // Show text that ends with 0x0d
+				case 0x19: // Show text that ends with 0x0d
+					var t='';
+					var c;
+					var de=this.regDE;
+					while((c=memory.read(de++))!=0x0d){
+						if (c<0x20 || 0x7f<c) c=0x3f; // Force '?'
+						t+=String.fromCharCode(c);
+					}
+					dom.displaylog(t);
+					break;
+				default:
+					break;
+			}
 		}
 		return this.codeC3copy();
 	}
@@ -51,7 +75,12 @@ z80.codeC3=function(){
 	z80.codeC9();
 }
 // Initialize Memory
-memory.init(48); // 48 Kbytes memory
+if (0<get.ramsize && get.ramsize<48) {
+	memory.init(get.ramsize);
+} else {
+	// 48 Kbytes memory
+	memory.init(48);
+}
 // Additional initializations
 if (typeof mztape !="undefined") mztape.load();
 if (get.debug && (!get.worker) && typeof debugDisplay !="undefined") {
