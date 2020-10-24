@@ -21,6 +21,10 @@ body {
 	text-decoration: none;
 	text-align: center;
 }
+.help {
+	color: #fff;
+	text-decoration: none;
+}
 div,pre {
 	background: #fff;
 	color: #000;

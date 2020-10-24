@@ -24,6 +24,7 @@ display.init=function(){
 };
 display.fonts.onload=function(){
 	display.onload();
+	keyboard.init();
 }
 // display.onload will be called after sucessfull loading of font PNG image.
 display.onload=function(){

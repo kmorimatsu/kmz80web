@@ -17,6 +17,7 @@ Note that rom.js and fonts.png ARE NOT provided by LGPL license.
 	<script type="text/javascript" src="./get.js"></script>
 	<script type="text/javascript" src="./dom.js"></script>
 	<script type="text/javascript" src="./file.js"></script>
+	<script type="text/javascript" src="./keyboard.js"></script>
 	<script type="text/javascript" src="./display.js"></script>
 	<script type="text/javascript" src="./audio.js"></script>
 	<!-- Load Z80 CPU emulator -->
@@ -33,7 +34,7 @@ Note that rom.js and fonts.png ARE NOT provided by LGPL license.
 	<script type="text/javascript" src="./mztape.js"></script>
 	<!-- Load debug functions (optional; it will work at kmz80web.html?debug=1) -->
 	<script type="text/javascript" src="./debug.js"></script>
-	<title>KM-Z80 web v0.8</title>
+	<title>KM-Z80 web v0.9</title>
 </head>
 <body>
 	<!-- Canvas used to black out the display -->
@@ -42,7 +43,11 @@ Note that rom.js and fonts.png ARE NOT provided by LGPL license.
 	<canvas id="display" width="320" height="200"></canvas>
 	<!-- Debug output -->
 	<div class="debug" id="debug"></div>
-	<!-- Kana and CPU speed indicators -->
+	<!-- keyboard -->
+	<div style="width:320;">
+		<canvas id="keyboard" width="320" height="100"></canvas>
+	</div>
+	<!-- Kana and CPU speed indicator -->
 	<div class="info">
 		<canvas id="led" width="16" height="16"></canvas>
 		<span id="speed">clock: 2000000 hz</span>
@@ -62,6 +67,8 @@ Note that rom.js and fonts.png ARE NOT provided by LGPL license.
 	<input class="file" id="load" type="file" onchange="file.loaded(this);" />
 	<!-- File upload button -->
 	<input type="button" value="Set MZT" onclick="file.setMZT(document.getElementById('load'));" />
+	<!-- Help link -->
+	<a class="help" href="./help/index.html" onclick="window.open(this.href); return false;">Help</a>
 	<!-- File upload indicator -->
 	<span class="file" id="mztfile"></span>
 	<!-- File download link -->
