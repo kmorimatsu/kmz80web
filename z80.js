@@ -1,6 +1,6 @@
 /**********************************
 * Z80 emulator written by Katsumi *
-*           ver 0.80              *
+*           ver 0.90              *
 *     This script is released     *
 *       under the LGPL v2.1.      *
 **********************************/
@@ -4997,6 +4997,1200 @@ z80.codeFDF9=function(){
 	this.setT10();
 	this.loadSP(this.regIY);
 }
+/*
+	Undocumented instructions: CBxx
+*/
+z80.codeCB30=function(){
+	//SLL   B
+	this.setT8();
+	this.loadB(this.z80SLL(this.regB));
+};
+z80.codeCB31=function(){
+	//SLL   C
+	this.setT8();
+	this.loadC(this.z80SLL(this.regC));
+};
+z80.codeCB32=function(){
+	//SLL   D
+	this.setT8();
+	this.loadD(this.z80SLL(this.regD));
+};
+z80.codeCB33=function(){
+	//SLL   E
+	this.setT8();
+	this.loadE(this.z80SLL(this.regE));
+};
+z80.codeCB34=function(){
+	//SLL   H
+	this.setT8();
+	this.loadH(this.z80SLL(this.regH));
+};
+z80.codeCB35=function(){
+	//SLL   L
+	this.setT8();
+	this.loadL(this.z80SLL(this.regL));
+};
+z80.codeCB36=function(){
+	//SLL   (HL)
+	this.setT15();
+	memory.write(this.regHL,this.z80SLL(memory.read(this.regHL)));
+};
+z80.codeCB37=function(){
+	//SLL   A
+	this.setT8();
+	this.loadA(this.z80SLL(this.regA));
+};
+/*
+	Undocumented instructions: DDxx
+*/
+z80.codeDD24=function(){
+	// INC IXH
+	this.setT8();
+	var i8=this.regIXh+1;
+	this.loadIXh(i8);
+	this.flag8inc(i8);
+};
+z80.codeDD25=function(){
+	// DEC IXH
+	this.setT8();
+	var i8=this.regIXh-1;
+	this.loadIXh(i8);
+	this.flag8dec(i8);
+};
+z80.codeDD26=function(){
+	// LD IXH,nn
+	this.setT11();
+	this.loadIXh(this.getCode());
+};
+z80.codeDD2C=function(){
+	// INC IXL
+	this.setT8();
+	var i8=this.regIXl+1;
+	this.loadIXl(i8);
+	this.flag8inc(i8);
+};
+z80.codeDD2D=function(){
+	// DEC IXL
+	this.setT8();
+	var i8=this.regIXl-1;
+	this.loadIXl(i8);
+	this.flag8dec(i8);
+};
+z80.codeDD2E=function(){
+	// LD IXL,nn
+	this.setT11();
+	this.loadIXl(this.getCode());
+};
+z80.codeDD44=function(){
+	// LD B,IXH
+	this.setT8();
+	this.loadB(this.regIXh);
+};
+z80.codeDD45=function(){
+	// LD B,IXL
+	this.setT8();
+	this.loadB(this.regIXl);
+};
+z80.codeDD4C=function(){
+	// LD C,IXH
+	this.setT8();
+	this.loadC(this.regIXh);
+};
+z80.codeDD4D=function(){
+	// LD C,IXL
+	this.setT8();
+	this.loadC(this.regIXl);
+};
+z80.codeDD54=function(){
+	// LD D,IXH
+	this.setT8();
+	this.loadD(this.regIXh);
+};
+z80.codeDD55=function(){
+	// LD D,IXL
+	this.setT8();
+	this.loadD(this.regIXl);
+};
+z80.codeDD5C=function(){
+	// LD E,IXH
+	this.setT8();
+	this.loadE(this.regIXh);
+};
+z80.codeDD5D=function(){
+	// LD E,IXL
+	this.setT8();
+	this.loadE(this.regIXl);
+};
+z80.codeDD60=function(){
+	// LD IXH,B
+	this.setT8();
+	this.loadIXh(this.regB);
+};
+z80.codeDD61=function(){
+	// LD IXH,C
+	this.setT8();
+	this.loadIXh(this.regC);
+};
+z80.codeDD62=function(){
+	// LD IXH,D
+	this.setT8();
+	this.loadIXh(this.regD);
+};
+z80.codeDD63=function(){
+	// LD IXH,E
+	this.setT8();
+	this.loadIXh(this.regE);
+};
+z80.codeDD64=function(){
+	// LD IXH,IXH
+	this.setT8();
+	this.loadIXh(this.regIXh);
+};
+z80.codeDD65=function(){
+	// LD IXH,IXL
+	this.setT8();
+	this.loadIXh(this.regIXl);
+};
+z80.codeDD67=function(){
+	// LD IXH,A
+	this.setT8();
+	this.loadIXh(this.regA);
+};
+z80.codeDD68=function(){
+	// LD IXL,B
+	this.setT8();
+	this.loadIXl(this.regB);
+};
+z80.codeDD69=function(){
+	// LD IXL,C
+	this.setT8();
+	this.loadIXl(this.regC);
+};
+z80.codeDD6A=function(){
+	// LD IXL,D
+	this.setT8();
+	this.loadIXl(this.regD);
+};
+z80.codeDD6B=function(){
+	// LD IXL,E
+	this.setT8();
+	this.loadIXl(this.regE);
+};
+z80.codeDD6C=function(){
+	// LD IXL,IXH
+	this.setT8();
+	this.loadIXl(this.regIXh);
+};
+z80.codeDD6D=function(){
+	// LD IXL,IXL
+	this.setT8();
+	this.loadIXl(this.regIXl);
+};
+z80.codeDD6F=function(){
+	// LD IXL,A
+	this.setT8();
+	this.loadIXl(this.regA);
+};
+z80.codeDD7C=function(){
+	// LD A,IXH
+	this.setT8();
+	this.loadA(this.regIXh);
+};
+z80.codeDD7D=function(){
+	// LD A,IXL
+	this.setT8();
+	this.loadA(this.regIXl);
+};
+z80.codeDD84=function(){
+	// ADD A,IXH
+	this.setT8();
+	this.z80ADD(this.regIXh);
+};
+z80.codeDD85=function(){
+	// ADD A,IXL
+	this.setT8();
+	this.z80ADD(this.regIXl);
+};
+z80.codeDD8C=function(){
+	// ADC A,IXH
+	this.setT8();
+	this.z80ADC(this.regIXh);
+};
+z80.codeDD8D=function(){
+	// ADC A,IXL
+	this.setT8();
+	this.z80ADC(this.regIXl);
+};
+z80.codeDD94=function(){
+	// SUB IXH
+	this.setT8();
+	this.z80SUB(this.regIXh);
+};
+z80.codeDD95=function(){
+	// SUB IXL
+	this.setT8();
+	this.z80SUB(this.regIXl);
+};
+z80.codeDD9C=function(){
+	// SBC A,IXH
+	this.setT8();
+	this.z80SBC(this.regIXh);
+};
+z80.codeDD9D=function(){
+	// SBC A,IXL
+	this.setT8();
+	this.z80SBC(this.regIXl);
+};
+z80.codeDDA4=function(){
+	// AND IXH
+	this.setT8();
+	this.z80AND(this.regIXh);
+};
+z80.codeDDA5=function(){
+	// AND IXL
+	this.setT8();
+	this.z80AND(this.regIXl);
+};
+z80.codeDDAC=function(){
+	// XOR IXH
+	this.setT8();
+	this.z80XOR(this.regIXh);
+};
+z80.codeDDAD=function(){
+	// XOR IXL
+	this.setT8();
+	this.z80XOR(this.regIXl);
+};
+z80.codeDDB4=function(){
+	// OR IXH
+	this.setT8();
+	this.z80OR(this.regIXh);
+};
+z80.codeDDB5=function(){
+	// OR IXL
+	this.setT8();
+	this.z80OR(this.regIXl);
+};
+z80.codeDDBC=function(){
+	// CP IXH
+	this.setT8();
+	this.z80CP(this.regIXh);
+};
+z80.codeDDBD=function(){
+	// CP IXL
+	this.setT8();
+	this.z80CP(this.regIXl);
+};
+/*
+	Undocumented instructions: FDxx
+*/
+z80.codeFD24=function(){
+	// INC IYH
+	this.setT8();
+	var i8=this.regIYh+1;
+	this.loadIYh(i8);
+	this.flag8inc(i8);
+};
+z80.codeFD25=function(){
+	// DEC IYH
+	this.setT8();
+	var i8=this.regIYh-1;
+	this.loadIYh(i8);
+	this.flag8dec(i8);
+};
+z80.codeFD26=function(){
+	// LD IYH,nn
+	this.setT11();
+	this.loadIYh(this.getCode());
+};
+z80.codeFD2C=function(){
+	// INC IYL
+	this.setT8();
+	var i8=this.regIYl+1;
+	this.loadIYl(i8);
+	this.flag8inc(i8);
+};
+z80.codeFD2D=function(){
+	// DEC IYL
+	this.setT8();
+	var i8=this.regIYl-1;
+	this.loadIYl(i8);
+	this.flag8dec(i8);
+};
+z80.codeFD2E=function(){
+	// LD IYL,nn
+	this.setT11();
+	this.loadIYl(this.getCode());
+};
+z80.codeFD44=function(){
+	// LD B,IYH
+	this.setT8();
+	this.loadB(this.regIYh);
+};
+z80.codeFD45=function(){
+	// LD B,IYL
+	this.setT8();
+	this.loadB(this.regIYl);
+};
+z80.codeFD4C=function(){
+	// LD C,IYH
+	this.setT8();
+	this.loadC(this.regIYh);
+};
+z80.codeFD4D=function(){
+	// LD C,IYL
+	this.setT8();
+	this.loadC(this.regIYl);
+};
+z80.codeFD54=function(){
+	// LD D,IYH
+	this.setT8();
+	this.loadD(this.regIYh);
+};
+z80.codeFD55=function(){
+	// LD D,IYL
+	this.setT8();
+	this.loadD(this.regIYl);
+};
+z80.codeFD5C=function(){
+	// LD E,IYH
+	this.setT8();
+	this.loadE(this.regIYh);
+};
+z80.codeFD5D=function(){
+	// LD E,IYL
+	this.setT8();
+	this.loadE(this.regIYl);
+};
+z80.codeFD60=function(){
+	// LD IYH,B
+	this.setT8();
+	this.loadIYh(this.regB);
+};
+z80.codeFD61=function(){
+	// LD IYH,C
+	this.setT8();
+	this.loadIYh(this.regC);
+};
+z80.codeFD62=function(){
+	// LD IYH,D
+	this.setT8();
+	this.loadIYh(this.regD);
+};
+z80.codeFD63=function(){
+	// LD IYH,E
+	this.setT8();
+	this.loadIYh(this.regE);
+};
+z80.codeFD64=function(){
+	// LD IYH,IYH
+	this.setT8();
+	this.loadIYh(this.regIYh);
+};
+z80.codeFD65=function(){
+	// LD IYH,IYL
+	this.setT8();
+	this.loadIYh(this.regIYl);
+};
+z80.codeFD67=function(){
+	// LD IYH,A
+	this.setT8();
+	this.loadIYh(this.regA);
+};
+z80.codeFD68=function(){
+	// LD IYL,B
+	this.setT8();
+	this.loadIYl(this.regB);
+};
+z80.codeFD69=function(){
+	// LD IYL,C
+	this.setT8();
+	this.loadIYl(this.regC);
+};
+z80.codeFD6A=function(){
+	// LD IYL,D
+	this.setT8();
+	this.loadIYl(this.regD);
+};
+z80.codeFD6B=function(){
+	// LD IYL,E
+	this.setT8();
+	this.loadIYl(this.regE);
+};
+z80.codeFD6C=function(){
+	// LD IYL,IYH
+	this.setT8();
+	this.loadIYl(this.regIYh);
+};
+z80.codeFD6D=function(){
+	// LD IYL,IYL
+	this.setT8();
+	this.loadIYl(this.regIYl);
+};
+z80.codeFD6F=function(){
+	// LD IYL,A
+	this.setT8();
+	this.loadIYl(this.regA);
+};
+z80.codeFD7C=function(){
+	// LD A,IYH
+	this.setT8();
+	this.loadA(this.regIYh);
+};
+z80.codeFD7D=function(){
+	// LD A,IYL
+	this.setT8();
+	this.loadA(this.regIYl);
+};
+z80.codeFD84=function(){
+	// AFD A,IYH
+	this.setT8();
+	this.z80ADD(this.regIYh);
+};
+z80.codeFD85=function(){
+	// AFD A,IYL
+	this.setT8();
+	this.z80ADD(this.regIYl);
+};
+z80.codeFD8C=function(){
+	// ADC A,IYH
+	this.setT8();
+	this.z80ADC(this.regIYh);
+};
+z80.codeFD8D=function(){
+	// ADC A,IYL
+	this.setT8();
+	this.z80ADC(this.regIYl);
+};
+z80.codeFD94=function(){
+	// SUB IYH
+	this.setT8();
+	this.z80SUB(this.regIYh);
+};
+z80.codeFD95=function(){
+	// SUB IYL
+	this.setT8();
+	this.z80SUB(this.regIYl);
+};
+z80.codeFD9C=function(){
+	// SBC A,IYH
+	this.setT8();
+	this.z80SBC(this.regIYh);
+};
+z80.codeFD9D=function(){
+	// SBC A,IYL
+	this.setT8();
+	this.z80SBC(this.regIYl);
+};
+z80.codeFDA4=function(){
+	// AND IYH
+	this.setT8();
+	this.z80AND(this.regIYh);
+};
+z80.codeFDA5=function(){
+	// AND IYL
+	this.setT8();
+	this.z80AND(this.regIYl);
+};
+z80.codeFDAC=function(){
+	// YOR IYH
+	this.setT8();
+	this.z80XOR(this.regIYh);
+};
+z80.codeFDAD=function(){
+	// YOR IYL
+	this.setT8();
+	this.z80XOR(this.regIYl);
+};
+z80.codeFDB4=function(){
+	// OR IYH
+	this.setT8();
+	this.z80OR(this.regIYh);
+};
+z80.codeFDB5=function(){
+	// OR IYL
+	this.setT8();
+	this.z80OR(this.regIYl);
+};
+z80.codeFDBC=function(){
+	// CP IYH
+	this.setT8();
+	this.z80CP(this.regIYh);
+};
+z80.codeFDBD=function(){
+	// CP IYL
+	this.setT8();
+	this.z80CP(this.regIYl);
+};
+/*
+	Undocumented instructions: EDxx
+*/
+z80.codeED00=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED01=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED02=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED03=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED04=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED05=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED06=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED07=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED08=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED09=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0A=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0B=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0C=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0D=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0E=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED0F=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED10=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED11=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED12=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED13=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED14=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED15=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED16=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED17=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED18=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED19=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1A=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1B=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1C=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1D=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1E=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED1F=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED4C=function(){
+	// NEG *
+	this.codeED44();
+};
+z80.codeED4E=function(){
+	// IM 0 *
+	this.codeED46();
+};
+z80.codeED54=function(){
+	// NEG *
+	this.codeED44();
+};
+z80.codeED55=function(){
+	// RETN *
+	this.codeED45();
+};
+z80.codeED5C=function(){
+	// NEG *
+	this.codeED44();
+};
+z80.codeED5D=function(){
+	// RETN *
+	this.codeED44();
+};
+z80.codeED64=function(){
+	// NEG *
+	this.codeED45();
+};
+z80.codeED65=function(){
+	// RETN *
+	this.codeED45();
+};
+z80.codeED66=function(){
+	// IM 0 *
+	this.codeED46();
+};
+z80.codeED6C=function(){
+	// NEG *
+	this.codeED45();
+};
+z80.codeED6D=function(){
+	// RETN *
+	this.codeED45();
+};
+z80.codeED6E=function(){
+	// IM 0 *
+	this.codeED46();
+};
+z80.codeED70=function(){
+	// IN (C) / IN F,(C) *
+	his.setT12();
+	his.loadF(io.read(this.regC, this.regB));
+};
+z80.codeED71=function(){
+	// OUT (C),0 *
+	this.setT12();
+	io.write(this.regC, this.regB, 0);
+};
+z80.codeED74=function(){
+	// NEG *
+	this.codeED45();
+};
+z80.codeED75=function(){
+	// RETN *
+	this.codeED45();
+};
+z80.codeED76=function(){
+	// IM 1 *
+	this.codeED56();
+};
+z80.codeED77=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED7C=function(){
+	// NEG *
+	this.codeED45();
+};
+z80.codeED7D=function(){
+	// RETN *
+	this.codeED45();
+};
+z80.codeED7E=function(){
+	// IM 2 *
+	this.codeED5E();
+};
+z80.codeED7F=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED80=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED81=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED82=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED83=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED84=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED85=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED86=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED87=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED88=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED89=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8A=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8B=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8C=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8D=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8E=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED8F=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED90=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED91=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED92=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED93=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED94=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED95=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED96=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED97=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED98=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED99=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9A=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9B=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9C=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9D=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9E=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeED9F=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDA4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDA5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDA6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDA7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDAC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDAD=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDAE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDAF=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDB4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDB5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDB6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDB7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDBC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDBD=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDBE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDBF=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC0=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC1=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC2=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC3=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC8=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDC9=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCA=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCB=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCD=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDCF=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD0=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD1=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD2=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD3=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD8=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDD9=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDA=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDB=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDD=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDDF=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE0=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE1=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE2=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE3=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE8=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDE9=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDEA=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDEB=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDEC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDED=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDEE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDEF=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF0=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF1=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF2=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF3=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF4=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF5=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF6=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF7=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF8=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDF9=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFA=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFB=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFC=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFD=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFE=function(){
+	// NOP *
+	this.setT8();
+};
+z80.codeEDFF=function(){
+	// NOP *
+	this.setT8();
+};
 z80.codeVector=new Array(256);
 z80.codeCBVector=new Array(256);
 z80.codeDDVector=new Array(256);

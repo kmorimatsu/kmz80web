@@ -1,6 +1,6 @@
 /**********************************
 * Z80 emulator written by Katsumi *
-*           ver 0.80              * 
+*           ver 0.90              * 
 *     This script is released     *
 *       under the LGPL v2.1.      *
 **********************************/
@@ -535,6 +535,36 @@ z80.z80SRL=function(i8){
 	else this.clearSflag();
 	if (i8==0x00) this.setZflag();
 	else this.clearZflag();
+	this.clearHflag();
+	this.setZ80Parity(i8);
+	this.clearNflag();
+	return i8;
+}
+
+/* Undocumented instruction: SLL
+SLL instuction: 1 -> r0->r7 -> CY
+S is set if result is negative; reset otherwise
+Z is reset
+H is reset
+P/V is set if parity is even; reset otherwise
+N is reset
+C is data from bit 7 of source register
+*/
+z80.z80SLL=function(i8){
+	if (0x80&i8) {
+		i8=i8<<1;
+		i8&=0xff;
+		i8|=0x01;
+		this.setCflag();
+		this.setSflag();
+	} else {
+		i8=i8<<1;
+		i8&=0xff;
+		i8|=0x01;
+		this.clearCflag();
+		this.clearSflag();
+	}
+	this.clearZflag();
 	this.clearHflag();
 	this.setZ80Parity(i8);
 	this.clearNflag();
