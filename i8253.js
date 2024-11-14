@@ -36,31 +36,34 @@ i8253.read=function(addr){
 		case 0:
 			if (this.msb) {
 				this.msb=0;
-				ret=this.timer0>>8;
+				ret=this.rwbuff>>8;
 				return ret;
 			} else {
 				this.msb=1;
-				ret=this.timer0&0xff;
+				this.rwbuff=this.timer0;
+				ret=this.rwbuff&0xff;
 				return ret;
 			}
 		case 1:
 			if (this.msb) {
 				this.msb=0;
-				ret=(this.timer1time&0xff00)>>8;
+				ret=(this.rwbuff&0xff00)>>8;
 				return ret;
 			} else {
 				this.msb=1;
-				ret=this.timer1time&0xff;
+				this.rwbuff=this.timer1time;
+				ret=this.rwbuff&0xff;
 				return ret;
 			}
 		case 2:
 			if (this.msb) {
 				this.msb=0;
-				ret=(this.timer2time&0xff00)>>8;
+				ret=(this.rwbuff&0xff00)>>8;
 				return ret;
 			} else {
 				this.msb=1;
-				ret=this.timer2time&0xff;
+				this.rwbuff=this.timer2time;
+				ret=this.rwbuff&0xff;
 				return ret;
 			}
 		default:
