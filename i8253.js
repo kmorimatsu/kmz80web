@@ -23,8 +23,8 @@ i8253.events=function(){
 	while (1>this.timer1time && 0<this.timer1) {
 		this.timer1time+=this.timer1;
 		this.timer2time--;
-		while (1>this.timer2time && 0<this.timer2) {
-			this.timer2time+=this.timer2;
+		while (0>this.timer2time && 0<this.timer2) {
+			this.timer2time=this.timer2=0;
 			z80.interrupt();
 		}
 	}

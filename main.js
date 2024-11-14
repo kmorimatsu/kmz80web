@@ -12,6 +12,7 @@ z80.reset();
 z80.events=function(){
 	// z80.events() will be called every msec.
 	i8253.events();
+	i8255.events();
 }
 // Override JP command for loading from/saving to file.
 var autostart=get.start;
@@ -55,15 +56,19 @@ z80.codeC3=function(){
 	switch(this.regPC){
 		case 0x22: // Save header
 			file.saveHeader();
+			z80.loadAF(0); // No error on saving
 			break;
 		case 0x25: // Save body
 			file.saveBody();
+			z80.loadAF(0); // No error on saving
 			break;
 		case 0x28: // Load header
 			file.loadHeader();
+			z80.loadAF(0); // No error on loading
 			break;
 		case 0x2B: // Load body
 			file.loadBody();
+			z80.loadAF(0); // No error on loading
 			break;
 		case 0x2E: // Verify body
 			file.verifyBody();

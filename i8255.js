@@ -16,6 +16,14 @@ i8255.vsync=0;
 i8255.portA=0xff;
 i8255.portC=0x0f;
 i8255.p555=0; // 555 timer for prompt
+i8255.events=function(){
+	// This events will be called every 1 msec
+	if (get.vsync) {
+		// The 262 lines with 15750 Hz corresponds to 60.11 Hz
+		this.vsync++;
+		while(16.635<this.vsync) this.vsync-=16.635; // 1000/60.11 = 16.635
+	}
+};
 i8255.read=function(addr){
 	addr&=0x0003;
 	switch (addr) {
@@ -91,15 +99,22 @@ i8255.portCw=function(data){
 }
 i8255.portCr=function(){
 	var ret;
-	// No wait mode for Vsync
-	if (!this.vsync) this.vsync=1;
-	else this.vsync=0;
+	var vsync;
+	if (get.vsync) {
+		// Vsync signal is high in 12.698 msec during 16.635 msec period (200/262 * 16.635)
+		vsync=(this.vsync<12.698) ? 1:0;
+	} else {
+		// No wait mode for Vsync
+		if (!this.vsync) this.vsync=1;
+		else this.vsync=0;
+		vsync=this.vsync;
+	}
 	// 555 timer for prompt
 	var prompt=new Date().getMilliseconds();
 	prompt-=this.p555;
 	if (prompt<0) prompt+=1000;
 	// Prepare result
-	ret =(this.vsync)      ? 0x80:0;
+	ret =(vsync)           ? 0x80:0;
 	ret|=(499<prompt)      ? 0x40:0;
 	ret|=this.portC;
 	return ret;
